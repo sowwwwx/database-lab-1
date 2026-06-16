@@ -1,4 +1,4 @@
-Subscription-based gaming platform  with tables players, plans, games, genres, and sessions. Main query analyzes player activity, uses join to connect players, plans, sessions, games, and genres.
+Subscription-based gaming platform  with tables players, plans, games, genres, and sessions. Main query analyzes player activity, uses join to connect tables.
 
 - plans subscription plans (basic / standard / premium)
 - players registered users with country and plan
