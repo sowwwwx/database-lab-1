@@ -37,12 +37,16 @@ insert into plans (id, name, price) values
 (2, 'standard', 10),
 (3, 'premium', 25);
 
-insert into players (id, username, email, country, plan_id) values
-(1, 'username1', 'username1@mail.com', 'UA', 3),
-(2, 'username2', 'username2@mail.com', 'UA', 2),
-(3, 'username3', 'username3@mail.com', 'POL', 1),
-(4, 'username4', 'username4@mail.com', 'USA', 3),
-(5, 'username5', 'username5@mail.com', 'FR', 2);
+insert into players (id, username, email, country, plan_id)
+select
+    gs as id,
+    'username' || gs as username,
+    'username' || gs || '@mail.com' as email,
+    (array['UA', 'POL', 'USA', 'FR', 'DE', 'UK', 'CAN', 'ES'])[
+        floor(random() * 8 + 1)::int
+    ] as country,
+    floor(random() * 3 + 1)::int as plan_id
+from generate_series(1, 500) as gs;
 
 insert into genres (id, genre) values
 (1, 'shooter'),
@@ -50,24 +54,22 @@ insert into genres (id, genre) values
 (3, 'racing'),
 (4, 'strategy');
 
-insert into games (id, name, release_year, genre_id) values
-(1, 'game1', 2020, 1),
-(2, 'game2', 2021, 2),
-(3, 'game3', 2022, 1),
-(4, 'game4', 2023, 3),
-(5, 'game5', 2025, 4);
+insert into games (id, name, release_year, genre_id)
+select
+    gs as id,
+    'game' || gs as name,
+    floor(random() * 25 + 2000)::int as release_year,
+    floor(random() * 8 + 1)::int as genre_id
+from generate_series(1, 1000) as gs;
 
-insert into sessions (id, player_id, game_id, session_date, hours_played) values
-(1, 1, 1, '2024-03-12', 4),
-(2, 1, 2, '2024-05-16', 3),
-(3, 2, 1, '2024-08-21', 8),
-(4, 2, 5, '2024-03-19', 5),
-(5, 3, 2, '2024-01-09', 3),
-(6, 3, 4, '2024-05-02', 9),
-(7, 4, 3, '2024-11-24', 6),
-(8, 4, 1, '2024-09-11', 4),
-(9, 5, 4, '2024-10-01', 3),
-(10, 5, 1, '2024-04-12', 9);
+insert into sessions (id, player_id, game_id, session_date, hours_played)
+select
+    gs as id,
+    floor(random() * 500 + 1)::int as player_id,
+    floor(random() * 1000 + 1)::int as game_id,
+    date '2024-01-01' + floor(random() * 365)::int as session_date,
+    floor(random() * 10 + 1)::int as hours_played
+from generate_series(1, 10000) as gs;
 
 -- cte player_stats summarizes activity for each player (calculates total hours and number of sessions per player)
 with player_stats as (
