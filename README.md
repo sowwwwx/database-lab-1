@@ -7,7 +7,6 @@ Subscription-based gaming platform  with tables players, plans, games, genres, a
 - sessions: play sessions with date and hours played
 - CTE (player_stats) aggregates total hours and session count per player
 - 5 tables players, plans, sessions, games, genres
-- 'where filters' players with more than 5 total hours played
 - 'group by' groups results by player, country, plan and genre
 - 'order by' sorts total hours desc
 
@@ -17,3 +16,5 @@ For each active player query returns:
 - subscription plan name
 - hours spent per game genre
 - total hours and total session count across all games
+
+///insert data for games, sessions and players was vibecoded
